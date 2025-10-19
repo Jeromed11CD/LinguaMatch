@@ -27,22 +27,11 @@ header {
   font-size: 20px;
 }
 
-h1 {
-  font-weight: 700;
-  margin: 0;
-}
+h1 { font-weight: 700; margin: 0; }
 
-.subtitle {
-  text-align: center;
-  color: #bbb;
-  margin-bottom: 15px;
-}
+.subtitle { text-align: center; color: #bbb; margin-bottom: 15px; }
 
-#languageSelect {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
+#languageSelect { text-align: center; margin-bottom: 15px; }
 #languageSelect select {
   background: #1f1f1f;
   color: #fff;
@@ -99,11 +88,7 @@ h1 {
 .card.wrong { background-color: #f44336; }
 .card.disabled { pointer-events: none; opacity: 0.6; }
 
-#scoreTimer {
-  text-align: center;
-  margin-top: 10px;
-  font-weight: bold;
-}
+#scoreTimer { text-align: center; margin-top: 10px; font-weight: bold; }
 
 button {
   background: #2196f3;
@@ -116,7 +101,6 @@ button {
 }
 
 button:hover { background: #1976d2; }
-
 .hidden { display: none; }
 
 /* Mobile */
