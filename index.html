@@ -1,66 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LinguaMatch — Apprends l'anglais</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JD Match</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="logo">
-        <div class="logo-dot"></div>
-        <h1>LinguaMatch</h1>
-      </div>
-      <div class="controls">
-        <select id="categorySelect"></select>
-        <button id="startBtn" class="btn">Jouer</button>
-        <button id="importBtn" class="btn outline">Importer JSON</button>
-        <input id="fileInput" type="file" accept="application/json" class="hidden"/>
-      </div>
-    </header>
 
-    <main class="container">
-      <section class="info-bar">
-        <div>Thème : <strong id="themeLabel">—</strong></div>
-        <div>Phase : <strong id="phaseLabel">1</strong></div>
-        <div>Score : <strong id="score">0</strong></div>
-        <div>Temps : <strong id="timer">0</strong>s</div>
-      </section>
+<div id="themesSection">
+  <h1>🎯 JD Match</h1>
+  <p class="subtitle">Apprends le vocabulaire en t’amusant</p>
 
-      <section id="gameArea" class="game hidden">
-        <div id="leftCol" class="col"></div>
-        <div id="rightCol" class="col"></div>
-      </section>
-
-      <section id="endArea" class="hidden center">
-        <h2>Bravo 🎉</h2>
-        <p>Phase terminée — Ta score : <span id="finalScore"></span></p>
-        <button id="nextPhaseBtn" class="btn">Phase suivante</button>
-        <button id="replayBtn" class="btn outline">Rejouer la même phase</button>
-      </section>
-
-      <section class="help">
-        <h3>Comment jouer</h3>
-        <ol>
-          <li>Sélectionne un thème puis clique <strong>Jouer</strong>.</li>
-          <li>Clique sur un mot anglais (colonne gauche), puis sur son équivalent français (colonne droite).</li>
-          <li>Chaque bonne paire rapporte des points. À la fin, passe à la phase suivante.</li>
-        </ol>
-        <p>Pour ajouter beaucoup de mots : clique <strong>Importer JSON</strong> et fournis un fichier au format indiqué dans la documentation (ex. words.json).</p>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div>© 2025 — LinguaMatch — Gratuit • Déployable sur GitHub Pages</div>
-      <div class="monetize">
-        <a class="link" target="_blank" href="https://ko-fi.com/">☕ Faire un don</a>
-        <a class="link" target="_blank" href="https://www.amazon.fr/s?k=english+learning">📚 Affiliation</a>
-      </div>
-    </footer>
+  <div id="languageSelect">
+    <label for="learningLang">Je veux apprendre :</label>
+    <select id="learningLang">
+      <option value="en">Anglais 🇬🇧</option>
+      <option value="fr">Français 🇫🇷</option>
+    </select>
   </div>
 
-  <script src="script.js"></script>
+  <div id="themesGrid" class="themes-grid"></div>
+</div>
+
+<div id="gamePanel" class="hidden">
+  <h2 id="themeLabel"></h2>
+  <p>Phase <span id="phaseLabel"></span></p>
+  <div id="scoreTimer">
+    Score : <span id="score">0</span> | Temps restant : <span id="timer">30</span>s
+  </div>
+
+  <div class="columns">
+    <div id="leftCol" class="column"></div>
+    <div id="rightCol" class="column"></div>
+  </div>
+
+  <div id="endPanel" class="hidden">
+    <p>Phase terminée !</p>
+    <p>Score : <span id="finalScore"></span></p>
+    <p>Temps utilisé : <span id="finalTime"></span>s</p>
+    <button id="nextPhaseBtn">Phase suivante</button>
+    <button id="replayBtn">Rejouer</button>
+  </div>
+
+  <button id="backBtn">Retour aux thèmes</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
