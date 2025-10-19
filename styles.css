@@ -1,16 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background: radial-gradient(circle at 20% 20%, #101820, #1a1a2e, #0f2027);
   color: #fff;
   margin: 0;
   padding: 20px;
 }
 
-.hidden { display: none; }
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-h1, h2 { text-align: center; margin-bottom: 5px; }
+#logo-square {
+  width: 50px;
+  height: 50px;
+  background-color: #2196f3;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+}
 
-.subtitle { text-align: center; color: #bbb; margin-bottom: 15px; }
+h1 {
+  font-weight: 700;
+  margin: 0;
+}
+
+.subtitle {
+  text-align: center;
+  color: #bbb;
+  margin-bottom: 15px;
+}
 
 #languageSelect {
   text-align: center;
@@ -91,10 +117,10 @@ button {
 
 button:hover { background: #1976d2; }
 
+.hidden { display: none; }
+
 /* Mobile */
 @media screen and (max-width: 600px) {
-  .columns {
-    flex-direction: row; /* toujours côte à côte */
-  }
+  .columns { flex-direction: row; }
   .card { font-size: 14px; padding: 10px; }
 }
