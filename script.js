@@ -1,161 +1,32 @@
-/* ===================== BANK ===================== */
+/* ===================== WORD BANK ===================== */
 const wordBank = {
-  "Animaux":[["dog","chien"],["cat","chat"],["bird","oiseau"],["horse","cheval"],["cow","vache"],["pig","cochon"]],
-  "Cuisine":[["knife","couteau"],["fork","fourchette"],["spoon","cuillère"],["plate","assiette"],["cup","tasse"],["pan","poêle"]],
-  "Sport":[["football","football"],["tennis","tennis"],["swim","nager"],["run","courir"],["jump","sauter"],["gym","salle de sport"]],
-  "Vêtements":[["shirt","chemise"],["pants","pantalon"],["dress","robe"],["skirt","jupe"],["shoes","chaussures"],["socks","chaussettes"]],
-  // … ajoute ici les autres thèmes
-};
-
-/* ===================== ELEMENTS ===================== */
-const themesGrid = document.getElementById('themesGrid');
-const themesSection = document.getElementById('themesSection');
-const gamePanel = document.getElementById('gamePanel');
-const leftCol = document.getElementById('leftCol');
-const rightCol = document.getElementById('rightCol');
-const themeLabel = document.getElementById('themeLabel');
-const phaseLabel = document.getElementById('phaseLabel');
-const scoreEl = document.getElementById('score');
-const timerEl = document.getElementById('timer');
-const endPanel = document.getElementById('endPanel');
-const finalScore = document.getElementById('finalScore');
-const finalTime = document.getElementById('finalTime');
-const learningLangSelect = document.getElementById('learningLang');
-
-const backBtn = document.getElementById('backBtn');
-const nextPhaseBtn = document.getElementById('nextPhaseBtn');
-const replayBtn = document.getElementById('replayBtn');
-
-let learningLang = 'en'; // langue à apprendre
-let currentCategory = null;
-let phase = 1;
-let pairs = [];
-let selected = null;
-let matched = 0;
-let score = 0;
-let timer = 30;
-let intervalId = null;
-
-/* ===================== LANGUE ===================== */
-learningLangSelect.addEventListener('change', (e)=>{
-  learningLang = e.target.value;
-});
-
-/* ===================== THEMES ===================== */
-function renderThemes(){
-  themesGrid.innerHTML = '';
-  Object.keys(wordBank).forEach(cat=>{
-    const tile = document.createElement('div');
-    tile.className = 'theme-tile';
-    tile.innerHTML = `<div class="theme-title">${cat}</div><div class="theme-sub">${wordBank[cat].length} mots</div>`;
-    tile.addEventListener('click', ()=> startCategory(cat));
-    themesGrid.appendChild(tile);
-  });
-}
-renderThemes();
-
-/* ===================== START CATEGORY ===================== */
-function startCategory(cat){
-  currentCategory = cat;
-  phase = 1;
-  openPanelForCategory();
-  startRound();
-}
-
-function openPanelForCategory(){
-  themesSection.classList.add('hidden');
-  gamePanel.classList.remove('hidden');
-  themeLabel.textContent = currentCategory;
-  phaseLabel.textContent = phase;
-}
-
-/* ===================== BACK BUTTON ===================== */
-backBtn.addEventListener('click', ()=>{
-  clearInterval(intervalId);
-  gamePanel.classList.add('hidden');
-  themesSection.classList.remove('hidden');
-});
-
-/* ===================== START ROUND ===================== */
-function startRound(){
-  clearInterval(intervalId);
-  leftCol.innerHTML = ''; rightCol.innerHTML = '';
-  selected = null; matched = 0; score = 0; timer = 30;
-  scoreEl.textContent = score; timerEl.textContent = timer; phaseLabel.textContent = phase;
-  endPanel.classList.add('hidden');
-  nextPhaseBtn.classList.add('hidden');
-  replayBtn.classList.add('hidden');
-
-  const pool = wordBank[currentCategory].slice().sort(()=>Math.random()-0.5);
-  pairs = pool.slice(0,6); // 6 mots par phase
-
-  // selon la langue à apprendre, inverser les colonnes
-  let leftSide, rightSide;
-  if(learningLang === 'en'){
-    leftSide = pairs.map(p=>({text:p[0], pair:p[1]})); // anglais à gauche
-    rightSide = pairs.map(p=>({text:p[1], pair:p[0]}));
-  } else {
-    leftSide = pairs.map(p=>({text:p[1], pair:p[0]})); // français à gauche
-    rightSide = pairs.map(p=>({text:p[0], pair:p[1]}));
-  }
-
-  leftSide.sort(()=>Math.random()-0.5);
-  rightSide.sort(()=>Math.random()-0.5);
-
-  leftSide.forEach((c,i)=>{
-    const el = document.createElement('div'); el.className='card'; el.textContent=c.text;
-    el.dataset.pair = c.pair; el.addEventListener('click', ()=> onCardClick(el));
-    leftCol.appendChild(el);
-  });
-
-  rightSide.forEach((c,i)=>{
-    const el = document.createElement('div'); el.className='card'; el.textContent=c.text;
-    el.dataset.pair = c.pair; el.addEventListener('click', ()=> onCardClick(el));
-    rightCol.appendChild(el);
-  });
-
-  intervalId = setInterval(()=>{
-    timer--;
-    timerEl.textContent = timer;
-    if(timer<=0) endPhase();
-  },1000);
-}
-
-/* ===================== CARD CLICK ===================== */
-function onCardClick(card){
-  if(card.classList.contains('disabled')) return;
-  card.classList.add('disabled');
-
-  if(!selected){ selected = card; return; }
-
-  if(selected.dataset.pair === card.text){
-    selected.classList.add('correct');
-    card.classList.add('correct');
-    score++;
-    scoreEl.textContent = score;
-  } else {
-    selected.classList.add('wrong');
-    card.classList.add('wrong');
-  }
-
-  selected = null;
-  matched++;
-  if(matched >= 6) endPhase();
-}
-
-/* ===================== END PHASE ===================== */
-function endPhase(){
-  clearInterval(intervalId);
-  finalScore.textContent = score;
-  finalTime.textContent = 30 - timer;
-  endPanel.classList.remove('hidden');
-  nextPhaseBtn.classList.remove('hidden');
-  replayBtn.classList.remove('hidden');
-}
-
-/* ===================== BUTTONS ===================== */
-nextPhaseBtn.addEventListener('click', ()=>{
-  phase++;
-  startRound();
-});
-replayBtn.addEventListener('click', ()=> startRound());
+  "Animaux": [["dog","chien"],["cat","chat"],["bird","oiseau"],["horse","cheval"],["cow","vache"],["pig","cochon"]],
+  "Cuisine": [["knife","couteau"],["fork","fourchette"],["spoon","cuillère"],["plate","assiette"],["cup","tasse"],["pan","poêle"]],
+  "Sport": [["football","football"],["tennis","tennis"],["swim","nager"],["run","courir"],["jump","sauter"],["gym","salle de sport"]],
+  "Vêtements": [["shirt","chemise"],["pants","pantalon"],["dress","robe"],["skirt","jupe"],["shoes","chaussures"],["socks","chaussettes"]],
+  "Couleurs":[["red","rouge"],["blue","bleu"],["green","vert"],["yellow","jaune"],["black","noir"],["white","blanc"]],
+  "Fruits":[["apple","pomme"],["banana","banane"],["orange","orange"],["grape","raisin"],["pear","poire"],["strawberry","fraise"]],
+  "École":[["school","école"],["book","livre"],["pen","stylo"],["pencil","crayon"],["teacher","professeur"],["student","étudiant"]],
+  "Maison":[["house","maison"],["door","porte"],["window","fenêtre"],["table","table"],["chair","chaise"],["bed","lit"]],
+  "Métiers":[["doctor","médecin"],["nurse","infirmière"],["teacher","enseignant"],["engineer","ingénieur"],["driver","chauffeur"],["chef","chef"]],
+  "Transports":[["car","voiture"],["bus","bus"],["train","train"],["plane","avion"],["bicycle","vélo"],["boat","bateau"]],
+  "Technologie":[["computer","ordinateur"],["phone","téléphone"],["tablet","tablette"],["keyboard","clavier"],["mouse","souris"],["screen","écran"]],
+  "Corps":[["head","tête"],["arm","bras"],["leg","jambe"],["hand","main"],["foot","pied"],["eye","œil"]],
+  "Famille":[["mother","mère"],["father","père"],["brother","frère"],["sister","sœur"],["grandmother","grand-mère"],["grandfather","grand-père"]],
+  "Nature":[["tree","arbre"],["flower","fleur"],["river","rivière"],["mountain","montagne"],["sea","mer"],["sky","ciel"]],
+  "Météo":[["sunny","ensoleillé"],["rainy","pluvieux"],["cloudy","nuageux"],["snowy","enneigé"],["windy","venteux"],["stormy","orageux"]],
+  "Animaux marins":[["fish","poisson"],["shark","requin"],["whale","baleine"],["dolphin","dauphin"],["crab","crabe"],["octopus","pieuvre"]],
+  "Véhicules":[["car","voiture"],["motorbike","moto"],["truck","camion"],["bicycle","vélo"],["train","train"],["plane","avion"]],
+  "Musique":[["song","chanson"],["guitar","guitare"],["piano","piano"],["drum","batterie"],["violin","violon"],["voice","voix"]],
+  "Lieux":[["park","parc"],["school","école"],["cinema","cinéma"],["museum","musée"],["beach","plage"],["restaurant","restaurant"]],
+  "Vêtements d’hiver":[["coat","manteau"],["scarf","écharpe"],["gloves","gants"],["hat","chapeau"],["boots","bottes"],["sweater","pull"]],
+  "Vêtements d’été":[["t-shirt","t-shirt"],["shorts","short"],["sandals","sandales"],["cap","casquette"],["dress","robe"],["sunglasses","lunettes"]],
+  "Loisirs":[["reading","lecture"],["painting","peinture"],["swimming","natation"],["hiking","randonnée"],["gaming","jeu vidéo"],["cycling","cyclisme"]],
+  "Émotions":[["happy","heureux"],["sad","triste"],["angry","en colère"],["scared","effrayé"],["surprised","surpris"],["tired","fatigué"]],
+  "Aliments":[["bread","pain"],["milk","lait"],["cheese","fromage"],["rice","riz"],["egg","œuf"],["fish","poisson"]],
+  "Boissons":[["water","eau"],["juice","jus"],["milk","lait"],["coffee","café"],["tea","thé"],["soda","soda"]],
+  "Objets":[["book","livre"],["pen","stylo"],["phone","téléphone"],["key","clé"],["bag","sac"],["watch","montre"]],
+  "Villes":[["Paris","Paris"],["London","Londres"],["New York","New York"],["Tokyo","Tokyo"],["Berlin","Berlin"],["Madrid","Madrid"]],
+  "Adjectifs":[["big","grand"],["small","petit"],["fast","rapide"],["slow","lent"],["hot","chaud"],["cold","froid"]],
+  "Verbes":[["eat","manger"],["drink","boire"],["sleep","dormir"],["run","courir"],["jump","sauter"],["write","écrire"]],
+  "Choses de tous les jours":[["table","table"],["chair","chaise"],["window","fenêtre"],["door","porte"],["floor
